@@ -1,0 +1,2 @@
+# stereo
+The project stereo

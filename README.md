@@ -26,7 +26,7 @@ The result case (one randomly selected, the rest can be viewed by running the pr
 
 **Draw the chessboard:**
 
-![](/Users/mrs_empress/Desktop/stereo/code/stereo/output/calibration/drawchessleft03.jpg)
+![](output/calibration/drawchessleft03.jpg)
 
 **Image after correction:**
 

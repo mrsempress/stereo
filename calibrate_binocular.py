@@ -77,7 +77,7 @@ retval, cameraMatrix1, distCoeffs1, cameraMatrix2, distCoeffs2, R, T, E, F = cv2
                                                                                                  mtx_left, dist_left,
                                                                                                  mtx_right, dist_right,
                                                                                                  (w, h))
-print("================================stereo================================")
+print("================================Calibrate================================")
 print("Rotation matrix")
 print(R)
 print("Transformation matrix")
@@ -87,11 +87,19 @@ print(E)
 print("Fundamental matrix")
 print(F)
 
-# 进行立体更正
+# compute [T1,T2,Pn1,Pn2] = rectify(Po1,Po2)
 R1, R2, P1, P2, Q, validPixROI1, validPixROI2 = cv2.stereoRectify(mtx_left, dist_left,
                                                                   mtx_right, dist_right, (w, h), R, T)
 
-# 计算更正map
+print("================================Rectify================================")
+print("Rotation matrix 1")
+print(R1)
+print("Rotation matrix 2")
+print(R2)
+print("Projection matrix 1")
+print(P1)
+print("Projection matrix 2")
+print(P2)
 left_map1, left_map2 = cv2.initUndistortRectifyMap(mtx_left, dist_left, R1, P1, (w, h), cv2.CV_16SC2)
 
 right_map1, right_map2 = cv2.initUndistortRectifyMap(mtx_right, dist_right, R2, P2, (w, h), cv2.CV_16SC2)
@@ -103,16 +111,18 @@ rightpath = './data/right/right04.jpg'
 img1 = cv2.imread(leftpath)  # left
 img2 = cv2.imread(rightpath)  # right
 
-h, w = img1.shape[:2]
-newcameramtxl, roi = cv2.getOptimalNewCameraMatrix(mtx_left, dist_left, (w, h), 1, (w, h))
-img1 = cv2.undistort(img1, mtx_left, dist_left, None, newcameramtxl)
+# h, w = img1.shape[:2]
+# newcameramtxl, roi = cv2.getOptimalNewCameraMatrix(mtx_left, dist_left, (w, h), 1, (w, h))
+# img1 = cv2.undistort(img1, mtx_left, dist_left, None, newcameramtxl)
 
-h, w = img2.shape[:2]
-newcameramtxr, roi = cv2.getOptimalNewCameraMatrix(mtx_right, dist_right, (w, h), 1, (w, h))
-img2 = cv2.undistort(img2, mtx_right, dist_right, None, newcameramtxr)
+# h, w = img2.shape[:2]
+# newcameramtxr, roi = cv2.getOptimalNewCameraMatrix(mtx_right, dist_right, (w, h), 1, (w, h))
+# img2 = cv2.undistort(img2, mtx_right, dist_right, None, newcameramtxr)
 
-img1_rectified = cv2.remap(img1, left_map1, left_map2, interpolation=cv2.INTER_LINEAR)
-img2_rectified = cv2.remap(img2, right_map1, right_map2, interpolation=cv2.INTER_LINEAR)
+# rectify images by applying T1 and T2.
+# interpolation:INTER_NEAREST, INTER_LINEAR, INTER_AREA, INTER_CUBIC, INTER_LANCZOS4
+img1_rectified = cv2.remap(img1, left_map1, left_map2, interpolation=cv2.INTER_NEAREST) 
+img2_rectified = cv2.remap(img2, right_map1, right_map2, interpolation=cv2.INTER_NEAREST)
 
 cv2.imshow('image1 left', img1_rectified)
 cv2.waitKey(500)
@@ -133,10 +143,10 @@ cv2.destroyAllWindows()
 #     # rightpath = 'output/calibration_binocular/drawchessright' + ('0' if (i < 10) else '') + str(i) + '.jpg'
 #     # print(leftpath)
 #     # print(rightpath)
-#
+
 #     img1 = cv2.imread(leftpath)  # left
 #     img2 = cv2.imread(rightpath)  # right
-#
+
 #     # h, w = img1.shape[:2]
 #     # newcameramtxl, roi = cv2.getOptimalNewCameraMatrix(mtx_left, dist_left, (w, h), 1, (w, h))
 #     # img1 = cv2.undistort(img1, mtx_left, dist_left, None, newcameramtxl)
@@ -144,18 +154,18 @@ cv2.destroyAllWindows()
 #     # h, w = img2.shape[:2]
 #     # newcameramtxr, roi = cv2.getOptimalNewCameraMatrix(mtx_right, dist_right, (w, h), 1, (w, h))
 #     # img2 = cv2.undistort(img2, mtx_right, dist_right, None, newcameramtxr)
-#
-#     img1_rectified = cv2.remap(img1, left_map1, left_map2, interpolation=cv2.INTER_LINEAR)
-#     img2_rectified = cv2.remap(img2, right_map1, right_map2, interpolation=cv2.INTER_LINEAR)
-#
+
+#     img1_rectified = cv2.remap(img1, left_map1, left_map2, interpolation=cv2.INTER_NEAREST)
+#     img2_rectified = cv2.remap(img2, right_map1, right_map2, interpolation=cv2.INTER_NEAREST)
+
 #     cv2.imshow('image1 left', img1_rectified)
 #     cv2.waitKey(500)
 #     retval = cv2.imwrite('output/calibration_binocular/rectified' + leftpath[12:], img1_rectified)
 #     # if retval:
 #     #     print("Succeed")
-#
+
 #     cv2.imshow('image2 right', img2_rectified)
 #     cv2.waitKey(500)
 #     cv2.imwrite('output/calibration_binocular/rectified' + rightpath[13:], img2_rectified)
-#
+
 # cv2.destroyAllWindows()

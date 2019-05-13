@@ -92,7 +92,7 @@ Run `calibration.py`, you can see the calibrated and rectified picture in `outpu
 
 ![](data/right/right04.jpg)
 
-*Rectify:*
+*calibration and rectiﬁcation:*
 
 (Obviously, it succeed.)
 
@@ -112,7 +112,9 @@ After stereo correction, perform corresponding point analysis:
 
 ![](output/calibration_binocular/epilines_right04.jpg)
 
-We can find that the epipolar lines are parallel and prove that the rectiﬁcation is successful.
+We can find that the epipolar lines are parallel and the corresponding pixels are the same position in the two figures. It may prove that the rectiﬁcation is successful.
+
+
 
 # Modify 
 
@@ -121,4 +123,7 @@ We can find that the epipolar lines are parallel and prove that the rectiﬁcati
 3. 2019/05/09    Add `epilines.py`
 4. 2019/05/10    Add `calibrate_binocular.py`
 5. 2019/05/11    Modify `calibrate_binocular.py`, add  *rectiﬁcation* function
+6. 2019/05/12    Add `calibrate_binocular.m`, which is from [Tutorial on Rectification of Stereo Images]([http://homepages.inf.ed.ac.uk/rbf/CVonline/LOCAL_COPIES/FUSIELLO/node18.html](http://homepages.inf.ed.ac.uk/rbf/CVonline/LOCAL_COPIES/FUSIELLO/node18.html))
+
+
 

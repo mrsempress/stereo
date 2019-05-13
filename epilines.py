@@ -14,7 +14,7 @@ def Epipolar_geometry(leftpath, rightpath):
     :return:
     """
     # objP = np.zeros((6 * 7, 3), np.float32)
-    # objP[:, :2] = np.mgrid[0:7, 0:6].T.reshape(-1, 2) 
+    # objP[:, :2] = np.mgrid[0:7, 0:6].T.reshape(-1, 2)
     # patternSize = (7, 6)
     imgl = cv2.imread(leftpath, 0)  # queryimage # left image
     imgr = cv2.imread(rightpath, 0)  # trainimage # right image
@@ -50,7 +50,7 @@ def Epipolar_geometry(leftpath, rightpath):
     # goodMatches = []
     # minRatio = 1/3
     # for m,n in matches:
-    #     if m.distance / n.distance < minRatio:   
+    #     if m.distance / n.distance < minRatio:
     #         goodMatches.append([m])
     # sorted(goodMatches,key=lambda x:x[0].distance)
     # #绘制最优匹配点
@@ -227,17 +227,21 @@ def drawlines(img1, img2, lines, pts1, pts2):
 
 
 def main():
-    for id in range(1, 15):
-        if id == 10:
-            continue
-        # leftpath = './data/left/left' + ('0' if (id < 10) else '') + str(id) + '.jpg'
-        # rightpath = './data/right/right' + ('0' if (id < 10) else '') + str(id) + '.jpg'
-        leftpath = 'output/calibration_binocular/rectifiedleft' + ('0' if (id < 10) else '') + str(id) + '.jpg'
-        rightpath = 'output/calibration_binocular/rectifiedright' + ('0' if (id < 10) else '') + str(id) + '.jpg'
-        print(leftpath)
-        print(rightpath)
-        Epipolar_geometry(leftpath, rightpath)
-
+    # for id in range(1, 15):
+    #     if id == 10:
+    #         continue
+    #     # leftpath = './data/left/left' + ('0' if (id < 10) else '') + str(id) + '.jpg'
+    #     # rightpath = './data/right/right' + ('0' if (id < 10) else '') + str(id) + '.jpg'
+    #     leftpath = 'output/calibration_binocular/rectifiedleft' + ('0' if (id < 10) else '') + str(id) + '.jpg'
+    #     rightpath = 'output/calibration_binocular/rectifiedright' + ('0' if (id < 10) else '') + str(id) + '.jpg'
+    #     print(leftpath)
+    #     print(rightpath)
+    #     Epipolar_geometry(leftpath, rightpath)
+    leftpath = 'output/calibration_binocular/rectifiedleft04.jpg'
+    rightpath = 'output/calibration_binocular/rectifiedright04.jpg'
+    print(leftpath)
+    print(rightpath)
+    Epipolar_geometry(leftpath, rightpath)
 
 if __name__ == '__main__':
     main()

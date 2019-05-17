@@ -173,7 +173,7 @@ def ReprojectionError(objPoints, imgPoints, rvecs, tvecs, mtx, dist):
 
 
 def main():
-    global  objPoints
+    global objPoints
     global imgPoints
     Path = './data/left/*.jpg'
     images = glob.glob(Path)
